@@ -17,7 +17,7 @@ For example, if you want to analyze the GroEL transition, you can investigate th
 - Single 7mer ring with: ./eBDIMS2 1ss8 ABCDEFG 1sx4 ABCDEFG 1000 99.9
 - Double 7mer ring (14mer) with: ./eBDIMS2 1ss8 ABCDEFGHIJKLMN 1sx4 ABCDEFGHIJKLMN 1000 99.9
 
-*Note that, like in the full PCA-eBDIMS2 pipeline, the correspondence between chain labels in multi-meric proteins is assessed based on the ordering of the chain entries, e.g. for "1ss8 ABCDEFG" and "1ss8 HIJKLMN", the transition will be run with these chain correspondences: A-H, B-I, etc.
+*Note that the correspondence between chain labels in multi-meric proteins is assessed based on the ordering of the chain entries, e.g. for "1ss8 ABCDEFG" and "1ss8 HIJKLMN", the transition will be run with these chain correspondences: A-H, B-I, etc.
 
 **With this code you don't need to worry about having the same number of residues in both end-states. eBDIMS2 will find correspondences based on the numberings of residues.
 
