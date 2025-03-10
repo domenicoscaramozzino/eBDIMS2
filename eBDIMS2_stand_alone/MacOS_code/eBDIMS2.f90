@@ -121,6 +121,7 @@ program eBDIMS2
 	n_beads_ref = size(mass_ref)
 	n_beads_tar = size(mass_tar)
 
+	!!!!! COMPUTING GAMMA CONSTANTS FOR EACH BEAD - RELATED TO SOLVENT VISCOSITIES !!!!!
  	tau = 0.4d-2            !damping tau (=m/gamma) in picseconds!
 	allocate(gamma(n_beads_ref))
  	!$omp parallel do private(i)
