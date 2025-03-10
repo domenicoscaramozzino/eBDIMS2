@@ -121,6 +121,15 @@ program eBDIMS2
 	n_beads_ref = size(mass_ref)
 	n_beads_tar = size(mass_tar)
 
+ 	tau = 0.4d-2            !damping tau (=m/gamma) in picseconds!
+	allocate(gamma(n_beads_ref))
+ 	!$omp parallel do private(i)
+	do i = 1, n_beads_ref
+		gamma(i) = uma_kg_conv*mass_ref(i)/tau
+		gamma(i) = gamma(i)*1.d-15               !gamma in kg/s!
+	end do
+	!$omp end parallel do 	
+
 	rcmx = 0.0d0
 	rcmy = 0.0d0
 	rcmz = 0.0d0
@@ -217,17 +226,13 @@ program eBDIMS2
 	!!! START BROWNIAN SIMULATION !!!
 
 	dt = 1.d-3              !delta_t in picoseconds!
-	tau = 0.4d-2            !damping tau (=m/gamma) in picseconds!
 	exp_const = exp(-dt/tau)
 	
-	allocate(gamma(n_beads_ref))
 	allocate(c_v(n_beads_ref))
 	allocate(c_r(n_beads_ref))
 	
 	!$omp parallel do private(i)
 	do i = 1, n_beads_ref
-		gamma(i) = uma_kg_conv*mass_ref(i)/tau
-		gamma(i) = gamma(i)*1.d-15               !gamma in kg/s!
 		c_v(i) = exp_const*(sqrt(2*k_B*temp*gamma(i)*dt/10.0d0)/mass_ref(i))*1.d10
 		c_r(i) = (1 - exp_const)*sqrt(2*k_B*temp*dt*10/gamma(i))/(1.d18)
 	end do
